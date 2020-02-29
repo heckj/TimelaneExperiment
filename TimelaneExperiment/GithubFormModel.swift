@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-//import TimelaneCombine
+import TimelaneCombine
 
 class GithubFormModel : ObservableObject {
 
@@ -36,7 +36,7 @@ class GithubFormModel : ObservableObject {
             // main runloop.
             .removeDuplicates()
             .print("username pipeline: ") // debugging output for pipeline
-//            .lane("username")
+            .lane("username")
             .map { username -> AnyPublisher<[GithubAPIUser], Never> in
                 return GithubAPI.retrieveGithubUser(username: username)
             }
@@ -44,7 +44,7 @@ class GithubFormModel : ObservableObject {
             // switchToLatest to flatten the values out of that
             // pipeline to return down the chain, rather than returning a
             // publisher down the pipeline.
-//            .lane("githubUserData")
+            .lane("githubUserData")
             .switchToLatest()
             // using a sink to get the results from the API search lets us
             // get not only the user, but also any errors attempting to get it.
@@ -54,19 +54,7 @@ class GithubFormModel : ObservableObject {
 
         let _ = $githubUserData
             .receive(on: myBackgroundQueue)
-            // When I first wrote this publisher pipeline, the type I was
-            // aiming for was <GithubAPIUser?, Never>, where the value was an
-            // optional. The commented out .filter below was to prevent a `nil`
-            // GithubAPIUser object from propogating further and attempting to
-            // invoke the dataTaskPublisher which retrieves the avatar image.
-            //
-            // When I updated the type to be non-optional (<GithubAPIUser?,
-            // Never>) the filter expression was no longer needed, but possibly
-            // interesting.
-            // .filter({ possibleUser -> Bool in
-            //     possibleUser != nil
-            // })
-            // .print("avatar image for user") // debugging output
+            .lane("github user data")
             .map { userData -> AnyPublisher<UIImage, Never> in
                 guard let firstUser = userData.first else {
                     // my placeholder data being returned below is an empty
@@ -101,22 +89,16 @@ class GithubFormModel : ObservableObject {
                     // image for when an avatar image either isn't available or
                     // fails somewhere in the pipeline here.
                     .eraseToAnyPublisher()
-                    // ^^ match the return type here to the return type defined
-                    // in the .map() wrapping this because otherwise the return
-                    // type would be terribly complex nested set of generics.
             }
             .switchToLatest()
             // ^^ Take the returned publisher that's been passed down the chain
             // and "subscribe it out" to the value within in, and then pass
             // that further down.
-            .subscribe(on: myBackgroundQueue)
-            // ^^ do the above processing as well on a background Queue rather
-            // than potentially impacting the UI responsiveness
+            .lane("github avatar image")
             .receive(on: RunLoop.main)
             // ^^ and then switch to receive and process the data on the main
             // queue since we're messing with the UI
             .assign(to: \.githubUserAvatar, on: self)
             .store(in: &cancellableSet)
-
     }
 }
