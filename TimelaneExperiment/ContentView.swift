@@ -9,13 +9,47 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @ObservedObject var model: GithubFormModel
+
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Text("Hello, World!")
+            Form {
+                HStack {
+                    Text("User:")
+                    TextField("username", text: $model.username)
+                }
+                HStack {
+                    Text("Found: ")
+                    Text(String(model.githubUserData.count))
+                }
+            }
+            Spacer()
+            ForEach(model.githubUserData, id: \.self) { user in
+                VStack {
+                    HStack {
+                        Text(user.login)
+                        Text("repos: \(user.public_repos)")
+                    }
+                    Text(user.avatar_url)
+                    if self.model.networkActivity {
+                        ActivityIndicator(isAnimating: self.$model.networkActivity, style: .large)
+                    }
+//                    Image(model.githubUserAvatar)
+                }
+            }
+
+        }
+
     }
 }
 
+#if DEBUG
+var ghModel = GithubFormModel()
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(model: ghModel)
     }
 }
+#endif

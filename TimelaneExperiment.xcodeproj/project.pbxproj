@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,10 @@
 		1A535882240AD520000130BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A535881240AD520000130BD /* Preview Assets.xcassets */; };
 		1A535885240AD520000130BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A535883240AD520000130BD /* LaunchScreen.storyboard */; };
 		1A535890240AD520000130BD /* TimelaneExperimentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53588F240AD520000130BD /* TimelaneExperimentTests.swift */; };
+		1A53589C240AD562000130BD /* TimelaneCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 1A53589B240AD562000130BD /* TimelaneCombine */; };
+		1A5358A1240AD61A000130BD /* GithubFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53589E240AD61A000130BD /* GithubFormModel.swift */; };
+		1A5358A2240AD61A000130BD /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53589F240AD61A000130BD /* GithubAPI.swift */; };
+		1A5358A4240AE4E0000130BD /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5358A3240AE4E0000130BD /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,9 @@
 		1A53588B240AD520000130BD /* TimelaneExperimentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimelaneExperimentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A53588F240AD520000130BD /* TimelaneExperimentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelaneExperimentTests.swift; sourceTree = "<group>"; };
 		1A535891240AD520000130BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A53589E240AD61A000130BD /* GithubFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubFormModel.swift; sourceTree = "<group>"; };
+		1A53589F240AD61A000130BD /* GithubAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
+		1A5358A3240AE4E0000130BD /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A53589C240AD562000130BD /* TimelaneCombine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +90,9 @@
 				1A535878240AD51F000130BD /* AppDelegate.swift */,
 				1A53587A240AD51F000130BD /* SceneDelegate.swift */,
 				1A53587C240AD51F000130BD /* ContentView.swift */,
+				1A5358A3240AE4E0000130BD /* ActivityIndicator.swift */,
+				1A53589F240AD61A000130BD /* GithubAPI.swift */,
+				1A53589E240AD61A000130BD /* GithubFormModel.swift */,
 				1A53587E240AD520000130BD /* Assets.xcassets */,
 				1A535883240AD520000130BD /* LaunchScreen.storyboard */,
 				1A535886240AD520000130BD /* Info.plist */,
@@ -123,6 +134,9 @@
 			dependencies = (
 			);
 			name = TimelaneExperiment;
+			packageProductDependencies = (
+				1A53589B240AD562000130BD /* TimelaneCombine */,
+			);
 			productName = TimelaneExperiment;
 			productReference = 1A535875240AD51F000130BD /* TimelaneExperiment.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +187,9 @@
 				Base,
 			);
 			mainGroup = 1A53586C240AD51F000130BD;
+			packageReferences = (
+				1A53589A240AD562000130BD /* XCRemoteSwiftPackageReference "TimelaneCombine" */,
+			);
 			productRefGroup = 1A535876240AD51F000130BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,8 +226,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A535879240AD51F000130BD /* AppDelegate.swift in Sources */,
+				1A5358A2240AD61A000130BD /* GithubAPI.swift in Sources */,
 				1A53587B240AD51F000130BD /* SceneDelegate.swift in Sources */,
 				1A53587D240AD51F000130BD /* ContentView.swift in Sources */,
+				1A5358A4240AE4E0000130BD /* ActivityIndicator.swift in Sources */,
+				1A5358A1240AD61A000130BD /* GithubFormModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +489,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A53589A240AD562000130BD /* XCRemoteSwiftPackageReference "TimelaneCombine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/icanzilb/TimelaneCombine";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A53589B240AD562000130BD /* TimelaneCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A53589A240AD562000130BD /* XCRemoteSwiftPackageReference "TimelaneCombine" */;
+			productName = TimelaneCombine;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A53586D240AD51F000130BD /* Project object */;
 }
