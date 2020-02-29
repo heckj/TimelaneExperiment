@@ -14,11 +14,13 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Hello, World!")
             Form {
                 HStack {
                     Text("User:")
                     TextField("username", text: $model.username)
+                }
+                if self.model.networkActivity {
+                    ActivityIndicator(isAnimating: self.$model.networkActivity, style: .large)
                 }
                 HStack {
                     Text("Found: ")
@@ -26,22 +28,19 @@ struct ContentView: View {
                 }
             }
             Spacer()
-            ForEach(model.githubUserData, id: \.self) { user in
+            List(model.githubUserData, id: \.self) { user in
                 VStack {
                     HStack {
+                        Image(uiImage: self.model.githubUserAvatar)
+                            .resizable()
+                            .frame(width: 64.0, height: 64.0)
                         Text(user.login)
                         Text("repos: \(user.public_repos)")
                     }
                     Text(user.avatar_url)
-                    if self.model.networkActivity {
-                        ActivityIndicator(isAnimating: self.$model.networkActivity, style: .large)
-                    }
-//                    Image(model.githubUserAvatar)
                 }
             }
-
         }
-
     }
 }
 
